@@ -16,6 +16,6 @@ param(
     $PlainTextSecret
 )
 
-$secret = = ConvertTo-SecureString -String $PlainTextSecret -AsPlainText -Force
+$secret = ConvertTo-SecureString -String $PlainTextSecret -AsPlainText -Force
 Select-AzureRmSubscription -Subscription $Subscription
 Set-AzureKeyVaultSecret -VaultName $VaultName -Name $SecretName -SecretValue $Secret
