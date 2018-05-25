@@ -11,7 +11,6 @@ param(
     [String]
     $SecretName,
 
-
     [Parameter()]
     [switch]
     $Show
