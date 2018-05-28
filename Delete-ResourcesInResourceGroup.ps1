@@ -1,8 +1,14 @@
 param(
     [Parameter(Mandatory=$True)]
     [String]
-    $ResourceGroup
+    $ResourceGroup,
+
+    [Parameter(Mandatory=$True)]
+    [String]
+    $Subscription
 )
+
+Select-AzureRmSubscription -Subscription $Subscription
 
 $jobs = Get-AzureRmResource | `
         Where-Object { $_.ResourceGroupName -eq $ResourceGroup } | `
