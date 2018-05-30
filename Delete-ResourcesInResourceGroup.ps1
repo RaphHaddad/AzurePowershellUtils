@@ -5,14 +5,23 @@ param(
 
     [Parameter(Mandatory=$True)]
     [String]
-    $Subscription
+    $Subscription,
+
+    [Switch]
+    $Force
 )
 
 Select-AzureRmSubscription -Subscription $Subscription
 
 $jobs = Get-AzureRmResource | `
         Where-Object { $_.ResourceGroupName -eq $ResourceGroup } | `
-        Select-Object { Remove-AzureRmResource -AsJob -ResourceId $_.ResourceId -Force }
+        Select-Object {
+            if ($Force) {
+                Remove-AzureRmResource -AsJob -ResourceId $_.ResourceId -Force
+            } else {
+                Remove-AzureRmResource -ResourceId $_.ResourceId
+            }
+        }
 
 do {
     Write-Host "Have not completed all jobs yet"
